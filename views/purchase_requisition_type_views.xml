@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_requisition_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.requisition.type.inherit.form</field>
+        <field name="model">purchase.requisition.type</field>
+        <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_type_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group>
+                    <group string="Compare Quotations">
+                        <field name="compare_po_line" widget="boolean_toggle"/>
+                        <field name="use_brand_in_quotations" widget="boolean_toggle"/>
+                    </group>
+                    <group/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+

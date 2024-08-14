@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_table_board" model="ir.actions.client">
+        <field name="name">Products Compare Table</field>
+        <field name="tag">owl.action_table_board</field>
+    </record>
+
+    <record id="view_purchase_requisition_form_inherit_pt" model="ir.ui.view">
+        <field name="name">purchase.requisition.inherit.form.pt</field>
+        <field name="model">purchase.requisition</field>
+        <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="compare_purchase_order_lines" string="Compare Purchase Order Lines" type="object"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field invisible="1" name="compare_po_line"/>
+                <button class="oe_stat_button" icon="fa-chain" invisible="state == 'draft' or compare_po_line == False"
+                        name="%(action_table_board)d" type="action">
+                    <span>
+                        Compare Table
+                    </span>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="after">
+                <field domain="[('bom_ids', '!=', False)]" name="manufacturing_product" widget="many2one"/>
+                <field domain="[('product_tmpl_id', '=', manufacturing_product)]"
+                       invisible="manufacturing_product == False" name="product_bom" widget="many2one"/>
+            </xpath>
+            <xpath expr="//field[@name='type_id']" position="after">
+                <field name="use_brand_in_quotations" widget="boolean_toggle"/>
+            </xpath>
+            <xpath expr="//page/field[@name='line_ids']/tree/field[@name='product_qty']" position="after">
+                <field invisible="1" name="is_check"/>
+                <field invisible="1" name="forecasted_issue"/>
+                <button class="text-danger" icon="fa-area-chart text-danger"
+                        invisible="id == False or forecasted_issue == False" name="action_product_forecast_report"
+                        title="Forecast Report" type="object"/>
+                <button icon="fa-area-chart" invisible="id == False or forecasted_issue == True"
+                        name="action_product_forecast_report" title="Forecast Report" type="object"/>
+            </xpath>
+            <xpath expr="//page/field[@name='line_ids']/tree" position="attributes">
+                <attribute name="decoration-danger">
+                    not is_check
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

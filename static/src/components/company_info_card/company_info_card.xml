@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="owl.CompanyCard" owl="1">
+        <div class="col m-0 p-0">
+            <div class="shadow-sm border m-2 p-4 bg-white text-center" t-on-click="()=>props.onClick(props)">
+                <div class="h4 fw-bold text-dark" style="box-shadow: 0 1px 2px -1px #cf1336;">
+                    <span t-esc="props.value"/>
+                </div>
+                <div class="h5 mt-2" style="box-shadow: 0 2px 4px -1px #cf1336'">
+                    <div style='display: flex; justify-content: space-between;'>
+                        <div style='text-align: center; flex-basis: calc(30% - 5px);'>
+                            <p>Line </p>
+                            <span t-esc="props.line_total"/>
+                        </div>
+                        <div style='text-align: center; flex-basis: calc(80% - 6px);'>
+                            <p>Po Total</p>
+                            <span t-esc="props.amount_total"/><span t-esc="props.amount_total_currency"/>
+                        </div>
+                        <div style='text-align: center; flex-basis: calc(80% - 6px);'>
+                            <p>Rq. Total</p>
+                            <span t-esc="props.converted_total"/><span t-esc="props.converted_total_currency"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
